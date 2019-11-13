@@ -8,15 +8,10 @@
     <title>demo</title>
     <link rel="stylesheet" href="./index.css">
     <script>
-        window.onresize = function() {
-            refresh();
-        }
-
-        function refresh() {
-            // 设计稿宽度 1200
-            document.documentElement.style.fontSize = document.documentElement.clientWidth / 1200 * 100 + 'px';
-        }
-        refresh();
+        (function setSize() {
+            window.onresize = arguments.callee;
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 900 * 100 + 'px';
+        })()
 
         document.oncontextmenu = function() { // 关闭鼠标右键打开菜单
             return false;
@@ -34,11 +29,10 @@
         <h1 id="time" class="time"></h1>
         <h1 id="title" class="title"></h1>
     </div>
-    <div class="container">
+    <div class="container ">
         <div id="lei" class="content"></div>
-        <div class="mask">
+        <div class="mask ">
             <p class="game_over">已猝!</p>
-            <button onclick="reset()">再试一次</button>
         </div>
     </div>
     <button onclick="reset()">重置</button>

@@ -1,122 +1,108 @@
 body {
-    margin: 0;
-    padding: 0.2rem;
-    font-size: 0.12rem;
-    line-height: 0;
+  margin: 0;
+  padding: 0.2rem;
+  font-size: 0.12rem;
+  line-height: 0;
 }
-
-.head {
-    display: flex;
-    align-items: center;
+body .head {
+  display: flex;
+  align-items: center;
 }
-
-.time {
-    margin-left: 0.1rem;
-    color: black;
-    font-size: 0.2rem;
+body .head .time,
+body .head .title {
+  margin-left: 0.1rem;
 }
-
-.title {
-    margin-left: 0.1rem;
-    color: red;
+body .head .time {
+  color: black;
+  font-size: 0.2rem;
 }
-
-.game_type {
-    float: left;
-    font-size: 0.12rem;
-    outline: none;
-    padding: 0.06rem;
-    border: 1px solid #aaaaaa;
-    border-radius: 0.1rem;
+body .head .title {
+  color: red;
 }
-
-.container {
-    width: max-content;
-    height: max-content;
-    position: relative;
+body .head .game_type {
+  float: left;
+  font-size: 0.12rem;
+  outline: none;
+  padding: 0.06rem;
+  border: 1px solid #aaaaaa;
+  border-radius: 0.1rem;
 }
-
-.content {
-    clear: both;
-    margin: 0.1rem 0;
+body .container {
+  width: max-content;
+  height: max-content;
+  position: relative;
 }
-
-ul {
-    height: 0.2rem;
-    line-height: 0;
-    list-style-type: none;
-    list-style: none;
-    margin: 0;
-    line-height: 0;
-    padding-inline-start: 0;
+body .container .content {
+  clear: both;
+  margin: 0.1rem 0;
 }
-
-ul li {
-    position: relative;
-    display: inline-block;
-    background: #aaaaaa;
-    width: 0.2rem;
-    height: 0.2rem;
-    line-height: 0.2rem;
-    text-align: center;
-    border: 1px solid #ffffff;
-    border-left: none;
-    list-style-type: none;
-    border-radius: 0.06rem;
-    cursor: pointer;
+body .container .mask {
+  display: none;
+  position: absolute;
+  text-align: center;
+  padding-top: 20%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
-
-ul li:hover {
-    background: #dddddd;
+body .container .game_over {
+  margin-bottom: 0.3rem;
+  font-size: 0.24rem;
+  color: #ffffff;
 }
-
-.haveLei::before,
-.flag::before {
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    position: absolute;
-    width: 0.2rem;
-    height: 0.2rem;
-    line-height: 0.2rem;
-    content: '☹';
-    color: red;
-    font-size: 0.1rem;
-    text-align: center;
+body ul {
+  height: 0.2rem;
+  list-style-type: none;
+  list-style: none;
+  margin: 0;
+  line-height: 0;
+  padding-inline-start: 0;
 }
-
-.flag::before {
-    content: '♠';
+body ul li,
+body ul .haveLei::before,
+body ul .flag::before {
+  width: 0.2rem;
+  height: 0.2rem;
+  line-height: 0.2rem;
+  text-align: center;
 }
-
-.activeGrid {
-    background: #eeeeee;
-    border-color: #000000;
+body ul li {
+  position: relative;
+  display: inline-block;
+  background: #aaaaaa;
+  border: 1px solid #ffffff;
+  border-left: none;
+  list-style-type: none;
+  border-radius: 0.06rem;
+  cursor: pointer;
 }
-
-.mask {
-    display: none;
-    position: absolute;
-    text-align: center;
-    padding-top: 20%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.5);
+body ul li:hover {
+  background: #dddddd;
 }
-
-button {
-    margin-top: 0.1rem;
-    font-size: 0.18rem;
-    padding: 0.02rem 0.06rem;
-    border-radius: 0.04rem;
-    outline: none;
+body ul .haveLei::before,
+body ul .flag::before {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  content: '☹';
+  color: red;
+  font-size: 0.1rem;
 }
-
-.game_over {
-    margin-bottom: 0.3rem;
-    font-size: 0.24rem;
-    color: #ffffff;
+body ul .activeGrid {
+  background: #eeeeee;
+  border-color: #000000;
+}
+body ul .flag::before {
+  content: '♠';
+}
+body button {
+  margin-top: 0.1rem;
+  font-size: 0.18rem;
+  padding: 0.02rem 0.06rem;
+  border-radius: 0.04rem;
+  outline: none;
 }

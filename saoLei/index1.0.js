@@ -1,11 +1,13 @@
-var gridType = {
+var count = {
     first: { rows: 9, columns: 9, leiTotal: 10 },
     seconde: { rows: 16, columns: 16, leiTotal: 40 },
     third: { rows: 16, columns: 30, leiTotal: 99 },
-}
+};
+var type = 'first';
 
-var chooseType = 'first';
-
+var rows = count[type].rows;
+var columns = count[type].columns;
+var leiTotal = count[type].leiTotal;
 let grid = [];
 const li = document.getElementsByTagName('li');
 var gameOver = false;
@@ -15,7 +17,7 @@ var timing = 0;
 var timerStart = false;
 
 function changeGameType(value) {
-    chooseType = value;
+    type = value;
     reset();
 }
 
@@ -26,6 +28,9 @@ function reset() {
     document.getElementById('time').innerText = '';
     document.getElementById('title').innerText = '';
     gameOver = false;
+    rows = count[type].rows;
+    columns = count[type].columns;
+    leiTotal = count[type].leiTotal;
     init_grid();
 }
 
@@ -45,10 +50,10 @@ function init_grid() { // 创建网格
     document.getElementById("lei").innerHTML = '';
     var lei = '';
     grid = [];
-    for (let i = 0, l = gridType[chooseType].rows; i < l; i++) {
+    for (let i = 0; i < rows; i++) {
         lei += '<ul>';
-        for (let j = 0, len = gridType[chooseType].columns; j < len; j++) {
-            lei += '<li id="' + i + '-' + j + '" onmousedown="operation.grid_click(' + i + ',' + j + ',event)">&nbsp;</li>'
+        for (let j = 0; j < columns; j++) {
+            lei += '<li id="' + i + '-' + j + '" onmousedown="grid_click(' + i + ',' + j + ',event)">&nbsp;</li>'
             grid.push({ hasLei: false }); // 给每一格标记是否有雷
         }
         lei += '</ul>'
@@ -57,9 +62,7 @@ function init_grid() { // 创建网格
     leiNum();
 }
 
-var operation = {}
-
-operation.grid_click = function(posX, posY, event) {
+function grid_click(posX, posY, event) {
     if (!timerStart && !gameOver) {
         timerStart = true;
         setTimer();
@@ -69,16 +72,16 @@ operation.grid_click = function(posX, posY, event) {
         if (!active_grid.classList.contains('activeGrid')) { // 未点击过
             if (event) {
                 if (event.button == 0 && !active_grid.classList.contains('flag')) { // 鼠标左击 && 未被标记为雷
-                    operation.left_click(posX, posY, active_grid);
+                    left_click(posX, posY, active_grid);
                 } else if (event.button == 2) { // 鼠标右击
-                    operation.right_click(active_grid);
+                    right_click(active_grid);
                 }
             }
         }
     }
 }
 
-operation.left_click = function(posX, posY, dom) { // 鼠标左击
+function left_click(posX, posY, dom) { // 鼠标左击
     if (dom && !dom.classList.contains('isLei')) {
         dom.classList.add('activeGrid'); // 添加 打开 标记
         var number = aroundBoxLeiNumber(posX, posY);
@@ -95,7 +98,7 @@ operation.left_click = function(posX, posY, dom) { // 鼠标左击
                             if (number != 0) {
                                 around_grid.innerText = number;
                             } else {
-                                operation.left_click(i, j, around_grid);
+                                left_click(i, j, around_grid);
                             }
                         }
                     }
@@ -103,7 +106,7 @@ operation.left_click = function(posX, posY, dom) { // 鼠标左击
             }
         }
 
-        if (document.getElementsByClassName('activeGrid').length === gridType[chooseType].rows * gridType[chooseType].columns - gridType[chooseType].leiTotal) {
+        if (document.getElementsByClassName('activeGrid').length === rows * columns - leiTotal) {
             document.getElementById('title').innerText = '成功！';
             gameOver = true;
 
@@ -122,7 +125,7 @@ operation.left_click = function(posX, posY, dom) { // 鼠标左击
     }
 }
 
-operation.right_click = function(dom) { // 鼠标右击
+function right_click(dom) { // 鼠标右击
     if (dom && !dom.classList.contains('flag')) {
         dom.classList.add('flag'); // 添加 雷 标记
     } else {
@@ -147,9 +150,9 @@ function aroundBoxLeiNumber(posX, posY) { // 九宫格中 雷的数量计算
 }
 
 function leiNum() { // 随机生成雷
-    var total = gridType[chooseType].leiTotal;
+    var total = leiTotal;
     while (total) {
-        var position = randomNum(gridType[chooseType].rows * gridType[chooseType].columns); // 随机生成（0 - 100）的数
+        var position = randomNum(rows * columns); // 随机生成（0 - 100）的数
         if (!grid[position].hasLei) {
             li[position].classList.add('isLei');
             grid[position].hasLei = true;
